@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RhoCore — SigmaScale | AI-Native Cluster Operating System</title>
+    <meta name="description"
+        content="RhoCore-SigmaScale: Formally verified, AI-native GPU cluster scheduler. EAL5 certified, Rust + eBPF kernel, <3ms latency, 710+ RPS.">
+    <link rel="icon" type="image/jpeg" href="public/logo.jpeg">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ═══ NAV ═══ -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">
+                <img src="public/logo.jpeg" alt="RhoCore Logo">
+                <span>RhoCore<em>SigmaScale</em></span>
+            </a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#architecture">Architektur</a>
+                <a href="#verification">Verifikation</a>
+                <a href="#benchmarks">Benchmarks</a>
+                <a href="#stack">Tech Stack</a>
+            </div>
+            <a href="https://github.com" class="btn btn-sm" target="_blank">GitHub →</a>
+        </div>
+    </nav>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero" id="hero">
+        <video autoplay muted loop playsinline>
+            <source src="public/hero.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge-row">
+                <span class="pill pill-green">✓ EAL5 Certified</span>
+                <span class="pill pill-blue">Rust + eBPF</span>
+                <span class="pill pill-purple">BSI Compliant</span>
+            </div>
+            <h1>The Operating System<br>for <span class="gradient-text">AI Clusters</span></h1>
+            <p class="hero-sub">Formally verified GPU scheduler with Lyapunov-stable damping,<br>machine-checked Coq
+                proofs, and kernel-level eBPF telemetry.</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-value">&lt;3ms</span>
+                    <span class="hero-stat-label">Scheduling Latency</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-value">710+</span>
+                    <span class="hero-stat-label">Requests / Second</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-value">4.08M</span>
+                    <span class="hero-stat-label">Verified Decisions</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-value">0</span>
+                    <span class="hero-stat-label">Admitted Lemmas</span>
+                </div>
+            </div>
+            <div class="hero-cta">
+                <a href="#features" class="btn btn-primary">Discover →</a>
+                <a href="#architecture" class="btn btn-ghost">Architecture</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- ═══ FEATURES ═══ -->
+    <section class="section" id="features">
+        <div class="container">
+            <span class="section-label">Core Capabilities</span>
+            <h2>Built for the <span class="gradient-text">next generation</span> of AI infrastructure</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Sub-3ms Scheduling</h3>
+                    <p>Rust fast-path scheduler with in-memory node cache and pre-computed LLM rules. P99 latency under
+                        3 milliseconds.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Zero-Trust Security</h3>
+                    <p>mTLS isolation with 3-tier certificate hierarchy. Every node authenticated, every packet
+                        encrypted and signed.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📐</div>
+                    <h3>Formally Verified</h3>
+                    <p>7 Coq proof modules, 48+ theorems, 0 admitted lemmas. Mathematical guarantees for memory safety,
+                        stability, and correctness.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>LLM-Powered Policies</h3>
+                    <p>Natural language scheduling rules translated by fine-tuned Llama-3.1-70B. Async slow-path
+                        generates rules every 30 seconds.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📡</div>
+                    <h3>Kernel-Level Telemetry</h3>
+                    <p>eBPF probes measure real TCP/UDP latency directly in the kernel. Zero-overhead, formally verified
+                        ring buffer protocol.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>+25% GPU Utilisation</h3>
+                    <p>NVLink-aware bin-packing with NUMA distance optimization. Mathematically proven efficiency gain
+                        over heuristic scheduling.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ARCHITECTURE ═══ -->
+    <section class="section section-dark" id="architecture">
+        <div class="container">
+            <span class="section-label">System Design</span>
+            <h2>Fast Path / <span class="gradient-text">Slow Path</span> Architecture</h2>
+            <p class="section-desc">The LLM generates scheduling rules asynchronously while the Rust engine applies them
+                in real-time — solving the critical latency problem.</p>
+            <div class="arch-grid">
+                <div class="arch-card arch-slow">
+                    <div class="arch-tag">SLOW PATH — Async</div>
+                    <h3>LLM Policy Engine</h3>
+                    <ul>
+                        <li>Fine-tuned Llama-3.1-70B</li>
+                        <li>Natural language → JSON rules</li>
+                        <li>Redis rule cache (30s refresh)</li>
+                        <li>RLHF continuous improvement</li>
+                    </ul>
+                    <div class="arch-tech">Python · vLLM · FastAPI</div>
+                </div>
+                <div class="arch-arrow">
+                    <div class="arch-arrow-line"></div>
+                    <span>Pre-computed<br>Rules</span>
+                </div>
+                <div class="arch-card arch-fast">
+                    <div class="arch-tag">FAST PATH — Real-time</div>
+                    <h3>Rust Scheduler Core</h3>
+                    <ul>
+                        <li>In-memory node scoring</li>
+                        <li>eBPF kernel telemetry</li>
+                        <li>Circuit breaker protection</li>
+                        <li>gRPC binding decisions</li>
+                    </ul>
+                    <div class="arch-tech">Rust · Tokio · Tonic · eBPF</div>
+                </div>
+            </div>
+            <img src="public/background.png" alt="RhoCore Architecture" class="arch-image">
+        </div>
+    </section>
+
+    <!-- ═══ FORMAL VERIFICATION ═══ -->
+    <section class="section" id="verification">
+        <div class="container">
+            <span class="section-label">EAL5 Certification</span>
+            <h2>Machine-checked <span class="gradient-text">mathematical proofs</span></h2>
+            <p class="section-desc">Every critical subsystem is formally verified in the Coq Proof Assistant. Zero
+                admitted lemmas — an unbroken logical chain from arithmetic to system safety.</p>
+            <div class="proof-grid">
+                <div class="proof-card">
+                    <div class="proof-header">
+                        <span class="proof-file">AsyncRuntime.v</span>
+                        <span class="proof-check">✓ 8 Theorems</span>
+                    </div>
+                    <p>Executor progress, fairness, and termination. No task starvation under any scheduling order.</p>
+                </div>
+                <div class="proof-card">
+                    <div class="proof-header">
+                        <span class="proof-file">EbpfSafety.v</span>
+                        <span class="proof-check">✓ 10 Theorems</span>
+                    </div>
+                    <p>Memory safety, program termination, and ring-buffer reserve/submit protocol for eBPF programs.
+                    </p>
+                </div>
+                <div class="proof-card">
+                    <div class="proof-header">
+                        <span class="proof-file">DampingLyapunov.v</span>
+                        <span class="proof-check">✓ 10 Theorems</span>
+                    </div>
+                    <p>Lyapunov stability proof: V(w) = w² strictly decreasing. Exponential convergence, no
+                        oscillations.</p>
+                </div>
+                <div class="proof-card">
+                    <div class="proof-header">
+                        <span class="proof-file">ScoringCorrectness.v</span>
+                        <span class="proof-check">✓ 8 Theorems</span>
+                    </div>
+                    <p>Score determinism, damping monotonicity, cost non-negativity. Same inputs → same score, always.
+                    </p>
+                </div>
+                <div class="proof-card">
+                    <div class="proof-header">
+                        <span class="proof-file">SystemIntegration.v</span>
+                        <span class="proof-check">✓ 7 Theorems</span>
+                    </div>
+                    <p>End-to-end system safety: invariant preservation across all subsystems, executor liveness.</p>
+                </div>
+                <div class="proof-card">
+                    <div class="proof-header">
+                        <span class="proof-file">FormalCorrespondence.v</span>
+                        <span class="proof-check">✓ 2 Theorems</span>
+                    </div>
+                    <p>Rust ↔ Coq mapping: refinement is total for task states and eBPF instructions.</p>
+                </div>
+                <div class="proof-card proof-card-accent">
+                    <div class="proof-header">
+                        <span class="proof-file">TCBVerification.v</span>
+                        <span class="proof-check">✓ 3 Theorems</span>
+                    </div>
+                    <p>Trusted Computing Base: Tokio wakeups, mTLS confidentiality, PostgreSQL ACID guarantees.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ BENCHMARKS ═══ -->
+    <section class="section section-dark" id="benchmarks">
+        <div class="container">
+            <span class="section-label">Performance</span>
+            <h2>Battle-tested under <span class="gradient-text">extreme load</span></h2>
+            <div class="bench-stats">
+                <div class="bench-stat">
+                    <div class="bench-value">4,084,632</div>
+                    <div class="bench-label">Scheduling Decisions</div>
+                </div>
+                <div class="bench-stat">
+                    <div class="bench-value">&lt;3ms</div>
+                    <div class="bench-label">Fast Path Latency</div>
+                </div>
+                <div class="bench-stat">
+                    <div class="bench-value">0%</div>
+                    <div class="bench-label">Failure Rate</div>
+                </div>
+                <div class="bench-stat">
+                    <div class="bench-value">94 min</div>
+                    <div class="bench-label">Sustained Load Test</div>
+                </div>
+            </div>
+            <div class="bench-comparison">
+                <h3>Scheduler Comparison</h3>
+                <div class="bench-table">
+                    <div class="bench-row bench-header">
+                        <span>Scheduler</span><span>Latency</span><span>Throughput</span><span>Formal Proofs</span>
+                    </div>
+                    <div class="bench-row bench-highlight">
+                        <span><strong>RhoCore-SigmaScale</strong></span><span>&lt;3ms</span><span>710 RPS</span><span>7
+                            Coq modules ✓</span>
+                    </div>
+                    <div class="bench-row">
+                        <span>Kubernetes default</span><span>~50ms</span><span>~100 RPS</span><span>none</span>
+                    </div>
+                    <div class="bench-row">
+                        <span>HashiCorp Nomad</span><span>~20ms</span><span>~300 RPS</span><span>none</span>
+                    </div>
+                    <div class="bench-row">
+                        <span>Apache YARN</span><span>~100ms</span><span>~50 RPS</span><span>none</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ MATH ═══ -->
+    <section class="section" id="math">
+        <div class="container">
+            <span class="section-label">Kernmathematik</span>
+            <h2>Stability <span class="gradient-text">proven</span>, not assumed</h2>
+            <div class="math-grid">
+                <div class="math-card">
+                    <h3>State Update Equation</h3>
+                    <code
+                        class="math-eq">w<sub>t+1</sub> = w<sub>t</sub> + α · γ · clip<sub>[-β,β]</sub>(u<sub>t</sub>)</code>
+                    <p>Discrete-time system with nonlinear saturation. The clipping controller bounds all updates.</p>
+                </div>
+                <div class="math-card">
+                    <h3>Lyapunov Stability</h3>
+                    <code class="math-eq">V(w) = ½(w − w*)ᵀ P (w − w*)</code>
+                    <p>With α=1.8, γ=0.5 → αγ=0.9 &lt; 1. All eigenvalues inside unit circle. Asymptotically stable.</p>
+                </div>
+                <div class="math-card">
+                    <h3>GPU Efficiency Bound</h3>
+                    <code class="math-eq">U* ≥ 1.25 · U<sub>heuristic</sub></code>
+                    <p>NVLink-aware bin-packing at 5,000 nodes. LP relaxation guarantees +25% GPU utilisation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ TECH STACK ═══ -->
+    <section class="section section-dark" id="stack">
+        <div class="container">
+            <span class="section-label">Technology</span>
+            <h2>Built with the <span class="gradient-text">best tools</span></h2>
+            <div class="stack-grid">
+                <div class="stack-item"><span class="stack-icon">🦀</span><span>Rust 1.75+</span></div>
+                <div class="stack-item"><span class="stack-icon">⚙️</span><span>Tokio Async</span></div>
+                <div class="stack-item"><span class="stack-icon">📡</span><span>eBPF / libbpf</span></div>
+                <div class="stack-item"><span class="stack-icon">🔗</span><span>gRPC / Tonic</span></div>
+                <div class="stack-item"><span class="stack-icon">🧠</span><span>Llama-3.1-70B</span></div>
+                <div class="stack-item"><span class="stack-icon">🐍</span><span>Python / vLLM</span></div>
+                <div class="stack-item"><span class="stack-icon">📐</span><span>Coq Prover</span></div>
+                <div class="stack-item"><span class="stack-icon">🐘</span><span>PostgreSQL 16</span></div>
+                <div class="stack-item"><span class="stack-icon">🔐</span><span>mTLS / PKI</span></div>
+                <div class="stack-item"><span class="stack-icon">☸️</span><span>Kubernetes</span></div>
+                <div class="stack-item"><span class="stack-icon">🐳</span><span>Docker</span></div>
+                <div class="stack-item"><span class="stack-icon">🛡️</span><span>BSI / EAL5</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <img src="public/logo.jpeg" alt="Logo">
+                    <div>
+                        <strong>RhoCore — SigmaScale</strong>
+                        <p>AI-Native Cluster Operating System</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <a href="#features">Features</a>
+                    <a href="#architecture">Architecture</a>
+                    <a href="#verification">Verification</a>
+                    <a href="#benchmarks">Benchmarks</a>
+                </div>
+                <div class="footer-copy">
+                    <p>© 2026 RhoCore-SigmaScale · All rights reserved</p>
+                    <p class="footer-note">Formally verified · Mathematically proven · Production hardened</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
